@@ -31,6 +31,7 @@ def genr_conf(Un, delta, a):
                 old_u[t] = new_u[t]
             else:
                 new_u[t] = old_u[t]
+        print("#rank "+str(rank)+"finish conf "+str(n))
         Un[n, :] = new_u
     return Un
 
@@ -47,27 +48,10 @@ def conf(N_conf, N_dump, N_skip, N_t, a, delta):
     Un = genr_conf(Un, delta, a)
     return save_conf(Un, N_dump, N_skip, a)
 
-
-i = rank+16*0
-a = 0.01+i*0.01
-Um = conf(N_conf, N_dump, N_skip, 500, a, delta)
+print("#rank "+str(rank)+" working!")
+i = rank
+# a = 0.01+i*0.01
+# Um = conf(N_conf, N_dump, N_skip, 500, a, delta)
 N_t = 20+i*20
 Um = conf(N_conf, N_dump, N_skip, N_t, 0.01, delta)
-
-i = rank+16*1
-a = 0.01+i*0.01
-Um = conf(N_conf, N_dump, N_skip, 500, a, delta)
-N_t = 20+i*20
-Um = conf(N_conf, N_dump, N_skip, N_t, 0.01, delta)
-
-i = rank+16*2
-a = 0.01+i*0.01
-Um = conf(N_conf, N_dump, N_skip, 500, a, delta)
-N_t = 20+i*20
-Um = conf(N_conf, N_dump, N_skip, N_t, 0.01, delta)
-
-i = rank+16*3
-a = 0.01+i*0.01
-Um = conf(N_conf, N_dump, N_skip, 500, a, delta)
-N_t = 20+i*20
-Um = conf(N_conf, N_dump, N_skip, N_t, 0.01, delta)
+print("#rank "+str(rank)+" success!")
