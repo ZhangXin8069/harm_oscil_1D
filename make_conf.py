@@ -48,10 +48,14 @@ def conf(N_conf, N_dump, N_skip, N_t, a, delta):
     Un = genr_conf(Un, delta, a)
     return save_conf(Un, N_dump, N_skip, a)
 
+
 print("#rank "+str(rank)+" working!")
 i = rank
 # a = 0.01+i*0.01
 # Um = conf(N_conf, N_dump, N_skip, 500, a, delta)
+# N_t = 20+i*20
+# Um = conf(N_conf, N_dump, N_skip, N_t, 0.01, delta)
+# print("#rank "+str(rank)+" success!")
 N_t = 20+i*20
-Um = conf(N_conf, N_dump, N_skip, N_t, 0.01, delta)
+Um = conf(N_conf, N_dump, N_skip, N_t, 0.1, delta)
 print("#rank "+str(rank)+" success!")
