@@ -1,9 +1,9 @@
 import numpy as np
-from mpi4py import MPI
+# from mpi4py import MPI
 
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
-size = comm.Get_size()
+# comm = MPI.COMM_WORLD
+# rank = comm.Get_rank()
+# size = comm.Get_size()
 N_conf = 20000
 N_dump = 5000
 N_skip = 150
@@ -29,9 +29,11 @@ def genr_conf(Un, delta, a):
             new_u[t] = old_u[t]+delta*np.random.uniform(-1, 1)
             if np.random.uniform(0, 1) < weight(new_u, t, a)/weight(old_u, t, a):
                 old_u[t] = new_u[t]
+                print("1\n")
             else:
                 new_u[t] = old_u[t]
-        print("#rank "+str(rank)+"finish conf "+str(n))
+                print("0\n")
+        print("finish conf "+str(n))
         Un[n, :] = new_u
     return Un
 
@@ -49,13 +51,14 @@ def conf(N_conf, N_dump, N_skip, N_t, a, delta):
     return save_conf(Un, N_dump, N_skip, a)
 
 
-print("#rank "+str(rank)+" working!")
-i = rank
-# a = 0.01+i*0.01
-# Um = conf(N_conf, N_dump, N_skip, 500, a, delta)
+# print("#rank "+str(rank)+" working!")
+# i = rank
+# # a = 0.01+i*0.01
+# # Um = conf(N_conf, N_dump, N_skip, 500, a, delta)
+# # N_t = 20+i*20
+# # Um = conf(N_conf, N_dump, N_skip, N_t, 0.01, delta)
+# # print("#rank "+str(rank)+" success!")
 # N_t = 20+i*20
-# Um = conf(N_conf, N_dump, N_skip, N_t, 0.01, delta)
+# Um = conf(N_conf, N_dump, N_skip, N_t, 0.1, delta)
 # print("#rank "+str(rank)+" success!")
-N_t = 20+i*20
-Um = conf(N_conf, N_dump, N_skip, N_t, 0.1, delta)
-print("#rank "+str(rank)+" success!")
+Um = conf(N_conf, N_dump, N_skip, 1000, 0.05, 0.5)
